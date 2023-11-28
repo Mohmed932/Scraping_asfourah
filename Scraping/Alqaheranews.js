@@ -70,7 +70,6 @@ export const Alqaheranews = async (browser) => {
         );
         SourceData = baseUrl + mainSourceData;
         date = DataAndTime();
-        news_Date = { SourceData, date };
       } catch (error) {
         page.close();
       }
@@ -105,6 +104,7 @@ export const Alqaheranews = async (browser) => {
           if (title === undefined) {
             title = "";
           }
+          news_Date = { SourceData, date, title };
         } catch (error) {
           title = "";
         }
