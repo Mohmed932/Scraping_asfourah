@@ -104,7 +104,7 @@ export const Alqaheranews = async (browser) => {
           if (title === undefined) {
             title = "";
           }
-          news_Date = { SourceData, date, title };
+          news_Date = { SourceData, date, title, kind: links[i].name };
         } catch (error) {
           title = "";
         }
