@@ -61,7 +61,7 @@ app.get("/", (req, res) => {
   } catch (error) {
     if (error) throw error;
   } finally {
-    await browser.close();
+    // await browser.close();
   }
 })();
 
