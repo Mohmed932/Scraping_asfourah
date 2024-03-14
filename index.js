@@ -53,7 +53,7 @@ app.get("/scrape", async (req, res) => {
     await Alqaheranews(browser);
 
     const page = await browser.newPage();
-    await page.goto("https://alqaheranews-ikbw.onrender.com", {
+    await page.goto("https://alqaheranews-v8zg.onrender.com", {
       waitUntil: "domcontentloaded",
     });
     await page.close();
