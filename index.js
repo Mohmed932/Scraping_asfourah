@@ -53,7 +53,7 @@ app.get("/", (req, res) => {
       // Close the current page and open a new one
       await page.close();
       const newPage = await browser.newPage();
-      await page.goto("https://alqaheranews-tq7i.onrender.com", {
+      await page.goto("https://alqaheranews-8h14.onrender.com", {
         waitUntil: "domcontentloaded",
       });
       page = newPage; // Update the page reference to the new page
