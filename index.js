@@ -1,9 +1,10 @@
-import express from "express";
+import express from 'express';
 import { connect } from "mongoose";
-import puppeteer from "puppeteer";
+import puppeteer from 'puppeteer';
 import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
+
 import * as dotenv from "dotenv";
 dotenv.config();
 import { Alqaheranews } from "./Scraping/Alqaheranews.js";
@@ -17,50 +18,75 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: 'https://awalbawl.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(compression());
 
 // routes
 app.get("/", (req, res) => {
   res.send("Render Puppeteer server is up and running!");
 });
+// const newsRoutes = [
+//   { path: "/news/views", router: routerViews },
+//   { path: "/news/similer", router: Similerrouter },
+//   { path: "/news/art", router: routerArt },
+//   { path: "/news/career", router: routerCareer },
+//   { path: "/news/culture", router: routerCulture },
+//   { path: "/news/economy", router: routerEconomy },
+//   { path: "/news/embassies", router: routerEmbassies },
+//   { path: "/news/events", router: routerEvents },
+//   { path: "/news/health", router: routerHealth },
+//   { path: "/news/investigations", router: routerInvestigations },
+//   { path: "/news/politics", router: routerPolitics },
+//   { path: "/news/school", router: routerSchool },
+//   { path: "/news/sports", router: routerSports },
+//   { path: "/news/technology", router: routerTechnology },
+//   { path: "/news/world", router: routerWorld },
+//   { path: "/news/last", router: routerLastNews },
+//   { path: "/news/search", router: routerSearch },
+//   { path: "/news/", router: routerSingleNews },
+//   { path: "/SubScriber", router: SubScriberRoute },
+// ];
 
+// newsRoutes.forEach(({ path, router }) => {
+//   app.use(path, router);
+// });
+//send email notification
+// setInterval(() => {
+//   MailToDatebase()
+// }, 1000 * 60 * 60 * 4);
 // puppeteer scraping
 (async () => {
+  let browser = null;
   try {
-    const browser = await puppeteer.launch({
+    browser = await puppeteer.launch({
       args: [
         "--disable-setuid-sandbox",
         "--no-sandbox",
         "--single-process",
         "--no-zygote",
       ],
-      headless: "new",
       executablePath:
         process.env.NODE_ENV === "production"
           ? process.env.PUPPETEER_EXECUTABLE_PATH
           : puppeteer.executablePath(),
     });
-
-    const page = await browser.newPage();
-    await page.goto("https://alqaheranews-8h14.onrender.com", {
-      waitUntil: "domcontentloaded",
-    });
-
-    while (true) {
-      await Alqaheranews(browser);
-
-      // Close the current page and open a new one
-      await page.close();
-      const newPage = await browser.newPage();
-      await page.goto("https://alqaheranews-8h14.onrender.com", {
+    while(true){
+      await Alqaheranews(browser)
+      const page = await browser.newPage()
+      await page.goto("https://alqaheranews-8h14.onrender.com",{
         waitUntil: "domcontentloaded",
-      });
-      page = newPage; // Update the page reference to the new page
+        waitUntil: "load",
+      })
+      await page.close()
     }
   } catch (error) {
     if (error) throw error;
-    console.error("Error in Puppeteer scraping:", error);
+  } finally {
+    await browser.close();
   }
 })();
 
