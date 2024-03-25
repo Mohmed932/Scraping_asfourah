@@ -43,7 +43,7 @@ app.get("/", (req, res) => {
     });
 
     const page = await browser.newPage();
-    await page.goto("https://sadaelbalad-quj0.onrender.com", {
+    await page.goto("https://alqaheranews-8h14.onrender.com", {
       waitUntil: "domcontentloaded",
     });
 
