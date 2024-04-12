@@ -29,35 +29,6 @@ app.use(compression());
 app.get("/", (req, res) => {
   res.send("Render Puppeteer server is up and running!");
 });
-// const newsRoutes = [
-//   { path: "/news/views", router: routerViews },
-//   { path: "/news/similer", router: Similerrouter },
-//   { path: "/news/art", router: routerArt },
-//   { path: "/news/career", router: routerCareer },
-//   { path: "/news/culture", router: routerCulture },
-//   { path: "/news/economy", router: routerEconomy },
-//   { path: "/news/embassies", router: routerEmbassies },
-//   { path: "/news/events", router: routerEvents },
-//   { path: "/news/health", router: routerHealth },
-//   { path: "/news/investigations", router: routerInvestigations },
-//   { path: "/news/politics", router: routerPolitics },
-//   { path: "/news/school", router: routerSchool },
-//   { path: "/news/sports", router: routerSports },
-//   { path: "/news/technology", router: routerTechnology },
-//   { path: "/news/world", router: routerWorld },
-//   { path: "/news/last", router: routerLastNews },
-//   { path: "/news/search", router: routerSearch },
-//   { path: "/news/", router: routerSingleNews },
-//   { path: "/SubScriber", router: SubScriberRoute },
-// ];
-
-// newsRoutes.forEach(({ path, router }) => {
-//   app.use(path, router);
-// });
-//send email notification
-// setInterval(() => {
-//   MailToDatebase()
-// }, 1000 * 60 * 60 * 4);
 // puppeteer scraping
 (async () => {
   let browser = null;
@@ -77,7 +48,7 @@ app.get("/", (req, res) => {
     while(true){
       await Alqaheranews(browser)
       const page = await browser.newPage()
-      await page.goto("https://alqaheranews-1sfh.onrender.com",{
+      await page.goto("https://alqaheranewsk.onrender.com",{
         waitUntil: "domcontentloaded",
         waitUntil: "load",
       })
