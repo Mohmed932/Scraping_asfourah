@@ -48,7 +48,7 @@ app.get("/", (req, res) => {
     while(true){
       await Alqaheranews(browser)
       const page = await browser.newPage()
-      await page.goto("https://alqaheranews-h1xz.onrender.com",{
+      await page.goto("https://alqaheranews-h7rb.onrender.com",{
         waitUntil: "domcontentloaded",
         waitUntil: "load",
       })
