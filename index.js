@@ -1,29 +1,15 @@
 import express from 'express';
 import { connect } from "mongoose";
 import puppeteer from 'puppeteer';
-import cors from "cors";
-import helmet from "helmet";
-import compression from "compression";
-
 import * as dotenv from "dotenv";
+import { Alqaheranews } from './Scraping/Alqaheranews.js';
 dotenv.config();
-import { Alqaheranews } from "./Scraping/Alqaheranews.js";
 
 const uri = process.env.MONGODB_URL;
 const port = process.env.PORT || "5000";
 
 const app = express();
 
-// midelware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(helmet());
-app.use(cors({
-  origin: 'https://awalbawl.vercel.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-app.use(compression());
 
 // routes
 app.get("/", (req, res) => {
@@ -34,6 +20,7 @@ app.get("/", (req, res) => {
   let browser = null;
   try {
     browser = await puppeteer.launch({
+      headless: process.env.NODE_ENV === "production" ? true : false,
       args: [
         "--disable-setuid-sandbox",
         "--no-sandbox",
@@ -47,12 +34,12 @@ app.get("/", (req, res) => {
     });
     while(true){
       await Alqaheranews(browser)
-      const page = await browser.newPage()
-      await page.goto("https://alqaheranews-7len.onrender.com",{
-        waitUntil: "domcontentloaded",
-        waitUntil: "load",
-      })
-      await page.close()
+      // const page = await browser.newPage()
+      // await page.goto("https://alqaheranews-7len.onrender.com",{
+      //   waitUntil: "domcontentloaded",
+      //   waitUntil: "load",
+      // })
+      // await page.close()
     }
   } catch (error) {
     if (error) throw error;
