@@ -2,9 +2,9 @@
 // import { PostToFacebookPage } from "../SocialMedia/Facebook.js";
 // import { indexing } from "../indexing/Google.js";
 // import { submitToBing } from "../indexing/microsoft.js";
-// import { DataAndTime } from "../utiles/data.js";
 
 import { InsertDataToDb } from "../Curd/Inserttodb.js";
+import { rewriteScence } from "../utiles/Rewrite.js";
 
 const links = [
   {
@@ -39,52 +39,57 @@ const links = [
   },
 ];
 
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export const Alqaheranews = async (browser) => {
   if (browser.isConnected()) {
     for (let i = 0; i < links.length; i++) {
-      let title, category, name, link, desc, img;
-      const page = await browser.newPage();
-      await page.goto(links[i].link, {
-        waitUntil: "domcontentloaded",
-        waitUntil: "load",
-        timeout: 0,
-      });
-      const itemSelector = ".post-thumb .img-link";
-      await page.waitForSelector(itemSelector, {
-        waitUntil: "domcontentloaded",
-        waitUntil: "load",
-        timeout: 0,
-      });
-      link = await page.$eval(itemSelector, (i) => i.href);
-      // check if this new in database or no
-      await page.goto(link, {
-        waitUntil: "domcontentloaded",
-        waitUntil: "load",
-        timeout: 0,
-      });
-      const itemSelectorTitle = "main .single-content2 .entry-header h1";
-      await page.waitForSelector(itemSelectorTitle, {
-        waitUntil: "domcontentloaded",
-        waitUntil: "load",
-        timeout: 0,
-      });
-      title = await page.$eval(itemSelectorTitle, (i) => i.textContent.trim());
-      const itemSelectorImage = "main .single-content2 figure img";
-      await page.waitForSelector(itemSelectorImage, {
-        waitUntil: "domcontentloaded",
-        waitUntil: "load",
-        timeout: 0,
-      });
-      img = await page.$eval(itemSelectorImage, (i) => i.src);
-      category = links[i].category;
-      name = links[i].name;
-      const itemSelectorParagph =
-        "main .single-content2 article .entry-main-content .htmlCode p";
-      desc = await page.$$eval(itemSelectorParagph, (elements) =>
-        elements.map((el) => el.textContent.trim())
-      );
-      const data = { title, img, link, name, category, desc }
-      await InsertDataToDb(data);
+      try {
+        // الانتظار لمدة دقيقة قبل البدء في معالجة الرابط الحالي
+        await delay(60000);
+
+        const { category, name, link: categoryLink } = links[i];
+        const page = await browser.newPage();
+        await page.goto(categoryLink, { waitUntil: "load", timeout: 0 });
+
+        const itemSelector = ".post-thumb .img-link";
+        await page.waitForSelector(itemSelector, { timeout: 5000 });
+        const link = await page.$eval(itemSelector, (i) => i.href);
+
+        // الانتقال للرابط
+        await page.goto(link, { waitUntil: "load", timeout: 0 });
+
+        // استخراج البيانات
+        const title = await page.$eval(
+          "main .single-content2 .entry-header h1",
+          (i) => i.textContent.trim()
+        );
+        const img = await page.$eval(
+          "main .single-content2 figure img",
+          (i) => i.src
+        );
+        const paragraphs = await page.$$eval(
+          "main .single-content2 article .entry-main-content .htmlCode p",
+          (elements) => elements.map((el) => el.textContent.trim())
+        );
+
+        const desc = await Promise.all(
+          paragraphs.map(async (paragraph) => await rewriteScence(paragraph))
+        );
+
+        const data = {
+          title: await rewriteScence(title),
+          img,
+          link,
+          name,
+          category,
+          desc,
+        };
+        await InsertDataToDb(data);
+        await page.close();
+      } catch (error) {
+        console.error(`Error processing link ${links[i].link}:`, error);
+      }
     }
   }
 };
