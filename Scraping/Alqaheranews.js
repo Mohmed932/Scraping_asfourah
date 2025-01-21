@@ -1,10 +1,4 @@
-// import { news } from "../model/News.js";
-// import { PostToFacebookPage } from "../SocialMedia/Facebook.js";
-// import { indexing } from "../indexing/Google.js";
-// import { submitToBing } from "../indexing/microsoft.js";
-
-import { InsertDataToDb } from "../Curd/Inserttodb.js";
-import { rewriteScence } from "../utiles/Rewrite.js";
+import { Abbreviation } from "../utiles/abbreviation.js";
 
 const links = [
   {
@@ -39,57 +33,17 @@ const links = [
   },
 ];
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const itemSelector = {
+  linkNews:".post-thumb .img-link",
+  title:"main .single-content2 .entry-header h1",
+  img:"main .single-content2 figure img",
+  paragraphs:"main .single-content2 article .entry-main-content .htmlCode p",
+  // script:".article #NewsStory script",
+  // h2:".article #NewsStory h2",
+  // br:".article #NewsStory br",
+  // div:".article #NewsStory div",
+};
 
 export const Alqaheranews = async (browser) => {
-  if (browser.isConnected()) {
-    for (let i = 0; i < links.length; i++) {
-      try {
-        // الانتظار لمدة دقيقة قبل البدء في معالجة الرابط الحالي
-        await delay(60000);
-
-        const { category, name, link: categoryLink } = links[i];
-        const page = await browser.newPage();
-        await page.goto(categoryLink, { waitUntil: "load", timeout: 0 });
-
-        const itemSelector = ".post-thumb .img-link";
-        await page.waitForSelector(itemSelector, { timeout: 5000 });
-        const link = await page.$eval(itemSelector, (i) => i.href);
-
-        // الانتقال للرابط
-        await page.goto(link, { waitUntil: "load", timeout: 0 });
-
-        // استخراج البيانات
-        const title = await page.$eval(
-          "main .single-content2 .entry-header h1",
-          (i) => i.textContent.trim()
-        );
-        const img = await page.$eval(
-          "main .single-content2 figure img",
-          (i) => i.src
-        );
-        const paragraphs = await page.$$eval(
-          "main .single-content2 article .entry-main-content .htmlCode p",
-          (elements) => elements.map((el) => el.textContent.trim())
-        );
-
-        const desc = await Promise.all(
-          paragraphs.map(async (paragraph) => await rewriteScence(paragraph))
-        );
-
-        const data = {
-          title: await rewriteScence(title),
-          img,
-          link,
-          name,
-          category,
-          desc,
-        };
-        await InsertDataToDb(data);
-        await page.close();
-      } catch (error) {
-        console.error(`Error processing link ${links[i].link}:`, error);
-      }
-    }
-  }
+ await Abbreviation(browser,itemSelector,links)
 };

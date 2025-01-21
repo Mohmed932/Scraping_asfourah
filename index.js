@@ -3,13 +3,14 @@ import { connect } from "mongoose";
 import puppeteer from 'puppeteer';
 import * as dotenv from "dotenv";
 import { Alqaheranews } from './Scraping/Alqaheranews.js';
+import { Youm7 } from './Scraping/Youm7.js';
+import { Almasryalyoum } from './Scraping/Almasryalyoum.js';
 dotenv.config();
 
 const uri = process.env.MONGODB_URL;
 const port = process.env.PORT || "5000";
 
 const app = express();
-
 
 // routes
 app.get("/", (req, res) => {
@@ -33,13 +34,9 @@ app.get("/", (req, res) => {
           : puppeteer.executablePath(),
     });
     while(true){
-      await Alqaheranews(browser)
-      // const page = await browser.newPage()
-      // await page.goto("https://alqaheranews-7len.onrender.com",{
-      //   waitUntil: "domcontentloaded",
-      //   waitUntil: "load",
-      // })
-      // await page.close()
+      await Youm7(browser)
+      // await Almasryalyoum(browser)
+      // await Alqaheranews(browser)
     }
   } catch (error) {
     if (error) throw error;
