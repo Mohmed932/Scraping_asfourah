@@ -3,8 +3,8 @@ import { connect } from "mongoose";
 import puppeteer from 'puppeteer';
 import * as dotenv from "dotenv";
 import { Alqaheranews } from './Scraping/Alqaheranews.js';
-import { Youm7 } from './Scraping/Youm7.js';
-import { Almasryalyoum } from './Scraping/Almasryalyoum.js';
+// import { Youm7 } from './Scraping/Youm7.js';
+// import { Almasryalyoum } from './Scraping/Almasryalyoum.js';
 dotenv.config();
 
 const uri = process.env.MONGODB_URL;
@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
   let browser = null;
   try {
     browser = await puppeteer.launch({
-      headless: process.env.NODE_ENV === "production" ? true : false,
+      // headless: process.env.NODE_ENV === "production" ? true : false,
       args: [
         "--disable-setuid-sandbox",
         "--no-sandbox",
@@ -34,9 +34,9 @@ app.get("/", (req, res) => {
           : puppeteer.executablePath(),
     });
     while(true){
-      await Youm7(browser)
+      // await Youm7(browser)
       // await Almasryalyoum(browser)
-      // await Alqaheranews(browser)
+      await Alqaheranews(browser)
     }
   } catch (error) {
     if (error) throw error;
