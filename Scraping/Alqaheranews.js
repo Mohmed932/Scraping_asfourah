@@ -1,4 +1,5 @@
-import { Abbreviation } from "../utiles/abbreviation.js";
+import { Abbreviation } from "../utiles/Abbreviation.js";
+import { ParagraphFilterAlqaheranews } from "../utiles/ParagraphFilter.js";
 
 const links = [
   {
@@ -39,16 +40,13 @@ const links = [
 ];
 
 const itemSelector = {
-  linkNews:".post-thumb .img-link",
-  title:"main .single-content2 .entry-header h1",
-  img:"main .single-content2 figure img",
-  paragraphs:"main .single-content2 article .entry-main-content .htmlCode p",
-  // script:".article #NewsStory script",
-  // h2:".article #NewsStory h2",
-  // br:".article #NewsStory br",
-  // div:".article #NewsStory div",
+  linkNews: ".post-thumb .img-link",
+  title: "main .single-content2 .entry-header h1",
+  img: "main .single-content2 figure img",
+  paragraphs: "main .single-content2 article .entry-main-content .htmlCode p",
+  filtertext: ParagraphFilterAlqaheranews,
 };
 
 export const Alqaheranews = async (browser) => {
- await Abbreviation(browser,itemSelector,links)
+  await Abbreviation(browser, itemSelector, links);
 };

@@ -1,5 +1,5 @@
 import { Abbreviation } from "../utiles/Abbreviation.js";
-
+import { ParagraphFilterAhram } from "../utiles/ParagraphFilter.js";
 
 const links = [
   {
@@ -40,12 +40,16 @@ const links = [
 ];
 
 const itemSelector = {
-  linkNews:"#outer #ContentPlaceHolder1_dlNewsContentUrgent_divOuterNews_0 div div a",
-  title:"#ContentPlaceHolder1_divTitle",
-  img:"#ContentPlaceHolder1_divMainImage img",
-  paragraphs:"#ContentPlaceHolder1_divContent p",
+  linkNews:
+    "#outer #ContentPlaceHolder1_dlNewsContentUrgent_divOuterNews_0 div div a",
+  title: "#ContentPlaceHolder1_divTitle",
+  img: "#ContentPlaceHolder1_divMainImage img",
+  paragraphs: "#ContentPlaceHolder1_divContent p",
+  divs: "#ContentPlaceHolder1_divContent div",
+  h2: "#ContentPlaceHolder1_divContent h2",
+  filtertext: ParagraphFilterAhram,
 };
 
 export const Ahram = async (browser) => {
- await Abbreviation(browser,itemSelector,links)
+  await Abbreviation(browser, itemSelector, links);
 };

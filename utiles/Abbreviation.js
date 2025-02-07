@@ -4,9 +4,7 @@
 
 import { InsertDataToDb } from "../Curd/Inserttodb.js";
 import { News } from "../model/News.js";
-// import { RemoveItems } from "./RemoveItems.js";
 import { rewriteScence } from "./Rewrite.js";
-
 
 const userAgents = [
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
@@ -65,34 +63,33 @@ export const Abbreviation = async (browser, itemSelector, links) => {
             waitUntil: "load",
             timeout: 0,
           });
-          // await RemoveItems(page,itemSelector)
-          // استخراج البيانات
           const title = await page.$eval(itemSelector.title, (i) =>
             i.textContent.trim()
           );
           const img = await page.$eval(itemSelector.img, (i) => i.src);
-          const paragraphs = await page.$$eval(
-            itemSelector.paragraphs,
-            (elements) => elements.map((el) => el.textContent.trim())
-          );
-          paragraphs[0] = await rewriteScence(paragraphs[0]);
-          const data = {
-            title: await rewriteScence(title),
-            img,
-            link,
-            name,
-            category,
-            desc: paragraphs,
-          };
-
-          // إدخال البيانات في قاعدة البيانات
-          await InsertDataToDb(data);
+          const paragraphs = await itemSelector.filtertext(page, itemSelector);
+          if (paragraphs[0]) {
+            paragraphs[0] = await rewriteScence(paragraphs[0]);
+            const data = {
+              title: await rewriteScence(title),
+              img,
+              link,
+              name,
+              category,
+              desc: paragraphs,
+            };
+            await InsertDataToDb(data);
+            await page.close();
+          }
+          await page.close();
         }
+        await page.close();
       } catch (error) {
         console.error(
           `Error processing link ${links[i].link} at index ${i}:`,
           error
         );
+        await page.close();
       } finally {
         if (!page.isClosed()) await page.close();
       }

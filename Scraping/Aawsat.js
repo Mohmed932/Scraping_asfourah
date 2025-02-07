@@ -1,5 +1,5 @@
 import { Abbreviation } from "../utiles/Abbreviation.js";
-
+import { ParagraphFilterAawsat } from "../utiles/ParagraphFilter.js";
 
 const links = [
   {
@@ -37,11 +37,11 @@ const links = [
     name: "صحة",
     link: "https://aawsat.com/%D8%B5%D8%AD%D8%A9-%D9%88%D8%B9%D9%84%D9%88%D9%85",
   },
-//   {
-//     category: "Policy",
-//     name: "سياسة",
-//     link: "https://www.youm7.com/Section/%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9/319/1",
-//   },
+  //   {
+  //     category: "Policy",
+  //     name: "سياسة",
+  //     link: "https://www.youm7.com/Section/%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9/319/1",
+  //   },
   {
     category: "Middle_East",
     name: "الشرق الاوسط",
@@ -50,12 +50,14 @@ const links = [
 ];
 
 const itemSelector = {
-  linkNews:".article-item-info .article-item-title h2 a",
-  title:".entry-title h1",
-  img:".entry-media .img-field img",
-  paragraphs:".printable-area article .entry-content p",
+  linkNews: ".article-item-info .article-item-title h2 a",
+  title: ".entry-title h1",
+  img: ".entry-media .img-field img",
+  paragraphs: ".printable-area article .entry-content p",
+  blockquote: ".printable-area article .entry-content blockquote",
+  filtertext: ParagraphFilterAawsat,
 };
 
 export const Aawsat = async (browser) => {
- await Abbreviation(browser,itemSelector,links)
+  await Abbreviation(browser, itemSelector, links);
 };
