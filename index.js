@@ -2,9 +2,9 @@ import express from 'express';
 import { connect } from "mongoose";
 import puppeteer from 'puppeteer';
 import * as dotenv from "dotenv";
-import { Alqaheranews } from './Scraping/Alqaheranews.js';
-// import { Youm7 } from './Scraping/Youm7.js';
-// import { Almasryalyoum } from './Scraping/Almasryalyoum.js';
+// import { Alqaheranews } from './Scraping/Alqaheranews.js';
+// import { Aawsat } from './Scraping/Aawsat.js';
+import { Ahram } from './Scraping/Ahram.js';
 dotenv.config();
 
 const uri = process.env.MONGODB_URL;
@@ -34,9 +34,9 @@ app.get("/", (req, res) => {
           : puppeteer.executablePath(),
     });
     while(true){
-      // await Youm7(browser)
-      // await Almasryalyoum(browser)
-      await Alqaheranews(browser)
+      await Ahram(browser)
+      // await Aawsat(browser)
+      // await Alqaheranews(browser)
     }
   } catch (error) {
     if (error) throw error;
@@ -57,3 +57,7 @@ connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     })
   )
   .catch(() => console.log("not conected"));
+
+
+
+  // https://www.snabusiness.com/
