@@ -22,6 +22,10 @@ export const PuppeteerScraping = async () => {
           ? process.env.PUPPETEER_EXECUTABLE_PATH
           : puppeteer.executablePath(),
     });
+    await Sayidaty(browser);
+    await Alqaheranews(browser);
+    await Aawsat(browser);
+    await Ahram(browser);
     setInterval(async () => {
       await Sayidaty(browser);
       await Alqaheranews(browser);
