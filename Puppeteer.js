@@ -14,20 +14,20 @@ export const PuppeteerScraping = async () => {
         "--no-sandbox",
         "--single-process",
         "--no-zygote",
-        // "--start-maximized",
-        // "--disable-infobars",
+        "--start-maximized",
+        "--disable-infobars",
       ],
       executablePath:
         process.env.NODE_ENV === "production"
           ? process.env.PUPPETEER_EXECUTABLE_PATH
           : puppeteer.executablePath(),
     });
-    while (true) {
+    setInterval(async () => {
       await Sayidaty(browser);
       await Alqaheranews(browser);
       await Aawsat(browser);
       await Ahram(browser);
-    }
+    }, 600000);
   } catch (error) {
     throw error;
   }

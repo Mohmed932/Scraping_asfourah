@@ -47,6 +47,7 @@ const itemSelector = {
   paragraphs: "main .single-content2 article .entry-main-content .htmlCode p",
   filtertext: ParagraphFilterAlqaheranews,
   CleanUrlImage: CleanImageUrl,
+  googleGeminiKey: process.env.GOOGLE_GEMINI_KEY_ALQAHERANEWS,
 };
 
 export const Alqaheranews = async (browser) => {

@@ -40,10 +40,13 @@ const processLink = async (page, link, itemSelector, name, category) => {
     const paragraphs = await itemSelector.filtertext(page, itemSelector);
 
     if (title && img && paragraphs[0]) {
-      paragraphs[0] = await rewriteScence(paragraphs[0]);
+      paragraphs[0] = await rewriteScence(
+        paragraphs[0],
+        itemSelector.googleGeminiKey
+      );
 
       const data = {
-        title: await rewriteScence(title),
+        title: await rewriteScence(title, itemSelector.googleGeminiKey),
         img,
         link,
         name,
@@ -82,30 +85,29 @@ const processCategoryLinks = async (
 export const Abbreviation = async (browser, itemSelector, links) => {
   if (!browser.isConnected()) return;
 
-  // معالجة الروابط بشكل متوازٍ مع إضافة فاصل زمني بين الفتحات لتقليل الضغط على الخادم
+  // معالجة الروابط بشكل تتابعي
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  await Promise.all(
-    links.map(async ({ category, name, link: categoryLink }, i) => {
-      const page = await browser.newPage();
-      try {
-        // إضافة فاصل زمني بين الروابط لمنع الحظر
-        await delay(1000);
-        await processCategoryLinks(
-          page,
-          itemSelector,
-          categoryLink,
-          name,
-          category
-        );
-      } catch (error) {
-        console.error(
-          `Error processing link ${categoryLink} at index ${i}:`,
-          error
-        );
-      } finally {
-        if (!page.isClosed()) await page.close();
-      }
-    })
-  );
+  for (let i = 0; i < links.length; i++) {
+    const { category, name, link: categoryLink } = links[i];
+    const page = await browser.newPage();
+    try {
+      // إضافة فاصل زمني بين الروابط لمنع الحظر
+      await delay(1000);
+      await processCategoryLinks(
+        page,
+        itemSelector,
+        categoryLink,
+        name,
+        category
+      );
+    } catch (error) {
+      console.error(
+        `Error processing link ${categoryLink} at index ${i}:`,
+        error
+      );
+    } finally {
+      if (!page.isClosed()) await page.close();
+    }
+  }
 };

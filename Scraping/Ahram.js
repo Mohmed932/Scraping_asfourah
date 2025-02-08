@@ -50,6 +50,7 @@ const itemSelector = {
   h2: "#ContentPlaceHolder1_divContent h2",
   filtertext: ParagraphFilterAhram,
   CleanUrlImage: CleanImageUrl,
+  googleGeminiKey: process.env.GOOGLE_GEMINI_KEY_AHRAM,
 };
 
 export const Ahram = async (browser) => {

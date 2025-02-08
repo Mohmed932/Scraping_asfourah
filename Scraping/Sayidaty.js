@@ -55,6 +55,7 @@ const itemSelector = {
   h2: "main .entry-article-wrapper div .large-auto .pageWrapper .entry-content .field h2",
   filtertext: ParagraphFilterSayidaty,
   CleanUrlImage: CleanImageUrl,
+  googleGeminiKey: process.env.GOOGLE_GEMINI_KEY_SAYIDATY,
 };
 
 export const Sayidaty = async (browser) => {

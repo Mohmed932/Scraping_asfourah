@@ -58,6 +58,7 @@ const itemSelector = {
   blockquote: ".printable-area article .entry-content blockquote",
   filtertext: ParagraphFilterAawsat,
   CleanUrlImage: CleanImageUrl,
+  googleGeminiKey: process.env.GOOGLE_GEMINI_KEY_AAESAT,
 };
 
 export const Aawsat = async (browser) => {
