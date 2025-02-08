@@ -1,7 +1,7 @@
 import express from "express";
 import { connect } from "mongoose";
-import * as dotenv from "dotenv";
 import { PuppeteerScraping } from "./Puppeteer.js";
+import * as dotenv from "dotenv";
 dotenv.config();
 
 const uri = process.env.MONGODB_URL;

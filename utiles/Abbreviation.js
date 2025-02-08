@@ -25,7 +25,11 @@ const openPage = async (
   viewport = { width: 1600, height: 950, deviceScaleFactor: 1 }
 ) => {
   await page.setViewport(viewport);
-  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
+  await page.goto(url, {
+    waitUntil: "domcontentloaded",
+    timeout: 60000,
+    visible: true,
+  });
 };
 
 const processLink = async (page, link, itemSelector, name, category) => {
@@ -71,7 +75,8 @@ const processCategoryLinks = async (
   await openPage(page, categoryLink);
   await page.waitForSelector(itemSelector.linkNews, {
     waitUntil: "domcontentloaded",
-    timeout: 30000,
+    timeout: 60000,
+    visible: true,
   });
 
   const link = await page.$eval(itemSelector.linkNews, (i) => i.href);

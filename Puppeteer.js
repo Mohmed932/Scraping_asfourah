@@ -3,6 +3,7 @@ import { Sayidaty } from "./Scraping/Sayidaty.js";
 import { Alqaheranews } from "./Scraping/Alqaheranews.js";
 import { Ahram } from "./Scraping/Ahram.js";
 import { Aawsat } from "./Scraping/Aawsat.js";
+import { Alarabiya } from "./Scraping/Alarabiya.js";
 
 export const PuppeteerScraping = async () => {
   let browser = null;
@@ -22,11 +23,13 @@ export const PuppeteerScraping = async () => {
           ? process.env.PUPPETEER_EXECUTABLE_PATH
           : puppeteer.executablePath(),
     });
+    await Alarabiya(browser);
     await Sayidaty(browser);
     await Alqaheranews(browser);
     await Aawsat(browser);
     await Ahram(browser);
     setInterval(async () => {
+      await Alarabiya(browser);
       await Sayidaty(browser);
       await Alqaheranews(browser);
       await Aawsat(browser);

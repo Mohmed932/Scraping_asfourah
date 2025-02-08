@@ -1,6 +1,8 @@
 import { Abbreviation } from "../utiles/Abbreviation.js";
 import { CleanImageUrl } from "../utiles/CleanImageUrl.js";
 import { ParagraphFilterAawsat } from "../utiles/ParagraphFilter.js";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const links = [
   {
