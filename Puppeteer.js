@@ -8,14 +8,14 @@ export const PuppeteerScraping = async () => {
   let browser = null;
   try {
     browser = await puppeteer.launch({
-      headless: process.env.NODE_ENV === "production" ? true : false,
+      // headless: process.env.NODE_ENV === "production" ? true : false,
       args: [
         "--disable-setuid-sandbox",
         "--no-sandbox",
         "--single-process",
         "--no-zygote",
-        "--start-maximized",
-        "--disable-infobars",
+        // "--start-maximized",
+        // "--disable-infobars",
       ],
       executablePath:
         process.env.NODE_ENV === "production"
@@ -25,8 +25,8 @@ export const PuppeteerScraping = async () => {
     while (true) {
       await Sayidaty(browser);
       await Alqaheranews(browser);
-      await Ahram(browser);
       await Aawsat(browser);
+      await Ahram(browser);
     }
   } catch (error) {
     throw error;
