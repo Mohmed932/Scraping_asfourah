@@ -1,5 +1,8 @@
 import puppeteer from "puppeteer";
-import { Sayidaty } from "./Scraping/Sayidaty";
+import { Sayidaty } from "./Scraping/Sayidaty.js";
+import { Alqaheranews } from "./Scraping/Alqaheranews.js";
+import { Ahram } from "./Scraping/Ahram.js";
+import { Aawsat } from "./Scraping/Aawsat.js";
 
 export const PuppeteerScraping = async () => {
   let browser = null;
@@ -21,6 +24,9 @@ export const PuppeteerScraping = async () => {
     });
     while (true) {
       await Sayidaty(browser);
+      await Alqaheranews(browser);
+      await Ahram(browser);
+      await Aawsat(browser);
     }
   } catch (error) {
     throw error;
