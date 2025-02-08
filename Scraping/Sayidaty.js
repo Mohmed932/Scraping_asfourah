@@ -1,4 +1,5 @@
 import { Abbreviation } from "../utiles/Abbreviation.js";
+import { CleanImageUrl } from "../utiles/CleanImageUrl.js";
 import { ParagraphFilterSayidaty } from "../utiles/ParagraphFilter.js";
 
 const links = [
@@ -53,6 +54,7 @@ const itemSelector = {
   divs: "main .entry-article-wrapper div .large-auto .pageWrapper .entry-content .field div",
   h2: "main .entry-article-wrapper div .large-auto .pageWrapper .entry-content .field h2",
   filtertext: ParagraphFilterSayidaty,
+  CleanUrlImage: CleanImageUrl,
 };
 
 export const Sayidaty = async (browser) => {

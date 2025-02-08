@@ -1,4 +1,5 @@
 import { Abbreviation } from "../utiles/Abbreviation.js";
+import { CleanImageUrl } from "../utiles/CleanImageUrl.js";
 import { ParagraphFilterAawsat } from "../utiles/ParagraphFilter.js";
 
 const links = [
@@ -56,6 +57,7 @@ const itemSelector = {
   paragraphs: ".printable-area article .entry-content p",
   blockquote: ".printable-area article .entry-content blockquote",
   filtertext: ParagraphFilterAawsat,
+  CleanUrlImage: CleanImageUrl,
 };
 
 export const Aawsat = async (browser) => {

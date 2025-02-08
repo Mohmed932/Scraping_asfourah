@@ -1,21 +1,23 @@
-const removeParagraphsAfterLastDivSayidaty = async (page) => {
+const removeParagraphsAfterLastDivSayidaty = async (page, itemSelector) => {
   try {
-    // الحصول على جميع العناصر من النوع div
-    const divs = await page.$$eval("div", (elements) => elements);
+    // الحصول على جميع عناصر div من الصفحة باستخدام selector
+    const divs = await page.$$eval(itemSelector.divs, (elements) => elements);
 
-    // التحقق من أن هناك divs في الصفحة
+    // التأكد من وجود عناصر div
     if (divs.length > 0) {
       // تحديد آخر div
       const lastDiv = divs[divs.length - 1];
 
       // العثور على جميع الفقرات (p) التي تأتي بعد آخر div
       const paragraphsAfterLastDiv = await page.evaluate((lastDiv) => {
-        let nextEl = lastDiv.nextElementSibling; // الحصول على العنصر التالي بعد آخر div
-        let paragraphs = []; // مصفوفة لتخزين الفقرات التي سيتم حذفها
+        let nextEl = lastDiv.nextElementSibling; // العنصر التالي بعد آخر div
+        let paragraphs = []; // مصفوفة لتخزين الفقرات التي ستتم إزالتها
+
+        // التكرار عبر العناصر التالية
         while (nextEl) {
           if (nextEl.tagName === "P") {
-            // إذا كان العنصر التالي هو فقرة (p)
-            paragraphs.push(nextEl); // إضافة الفقرة إلى المصفوفة
+            // إذا كان العنصر هو فقرة (p)، إضافتها إلى المصفوفة
+            paragraphs.push(nextEl);
           }
           nextEl = nextEl.nextElementSibling; // الانتقال للعنصر التالي
         }
@@ -24,7 +26,7 @@ const removeParagraphsAfterLastDivSayidaty = async (page) => {
 
       // حذف جميع الفقرات التي تم العثور عليها
       for (let paragraph of paragraphsAfterLastDiv) {
-        await page.evaluate((p) => p.remove(), paragraph); // حذف كل فقرة
+        await page.evaluate((p) => p.remove(), paragraph); // حذف الفقرة
       }
     }
   } catch (error) {
@@ -34,7 +36,7 @@ const removeParagraphsAfterLastDivSayidaty = async (page) => {
 
 export const ParagraphFilterSayidaty = async (page, itemSelector) => {
   try {
-    await removeParagraphsAfterLastDivSayidaty(page);
+    await removeParagraphsAfterLastDivSayidaty(page, itemSelector);
     await page.$$eval(itemSelector.divs, (elements) =>
       elements.map((el) => el.remove())
     );

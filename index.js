@@ -1,7 +1,7 @@
 import express from "express";
 import { connect } from "mongoose";
 import * as dotenv from "dotenv";
-import { Puppeteer } from "./Puppeteer.js";
+import { PuppeteerScraping } from "./Puppeteer.js";
 dotenv.config();
 
 const uri = process.env.MONGODB_URL;
@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
   res.send("Render Puppeteer server is up and running!");
 });
 // puppeteer scraping
-await Puppeteer();
+PuppeteerScraping();
 
 app.use("*", (req, res) => {
   res.status(404).json("this page not found");

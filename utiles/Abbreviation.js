@@ -66,10 +66,13 @@ export const Abbreviation = async (browser, itemSelector, links) => {
           const title = await page.$eval(itemSelector.title, (i) =>
             i.textContent.trim()
           );
-          const img = await page.$eval(itemSelector.img, (i) => i.src);
+          const img = await itemSelector.CleanUrlImage(page, itemSelector);
           const paragraphs = await itemSelector.filtertext(page, itemSelector);
-          if (paragraphs[0]) {
+
+          // تحقق من وجود title و img و paragraphs[0] قبل حفظ البيانات
+          if (title && img && paragraphs[0]) {
             paragraphs[0] = await rewriteScence(paragraphs[0]);
+
             const data = {
               title: await rewriteScence(title),
               img,
@@ -78,18 +81,15 @@ export const Abbreviation = async (browser, itemSelector, links) => {
               category,
               desc: paragraphs,
             };
-            await InsertDataToDb(data);
-            await page.close();
+
+            await InsertDataToDb(data); // حفظ البيانات في قاعدة البيانات
           }
-          await page.close();
         }
-        await page.close();
       } catch (error) {
         console.error(
           `Error processing link ${links[i].link} at index ${i}:`,
           error
         );
-        await page.close();
       } finally {
         if (!page.isClosed()) await page.close();
       }

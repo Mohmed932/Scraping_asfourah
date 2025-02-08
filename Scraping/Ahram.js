@@ -1,4 +1,5 @@
 import { Abbreviation } from "../utiles/Abbreviation.js";
+import { CleanImageUrl } from "../utiles/CleanImageUrl.js";
 import { ParagraphFilterAhram } from "../utiles/ParagraphFilter.js";
 
 const links = [
@@ -48,6 +49,7 @@ const itemSelector = {
   divs: "#ContentPlaceHolder1_divContent div",
   h2: "#ContentPlaceHolder1_divContent h2",
   filtertext: ParagraphFilterAhram,
+  CleanUrlImage: CleanImageUrl,
 };
 
 export const Ahram = async (browser) => {

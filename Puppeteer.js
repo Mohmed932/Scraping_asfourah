@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
 import { Sayidaty } from "./Scraping/Sayidaty";
 
-export const Puppeteer = async () => {
+export const PuppeteerScraping = async () => {
   let browser = null;
   try {
     browser = await puppeteer.launch({

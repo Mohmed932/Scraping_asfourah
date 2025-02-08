@@ -1,4 +1,5 @@
 import { Abbreviation } from "../utiles/Abbreviation.js";
+import { CleanImageUrl } from "../utiles/CleanImageUrl.js";
 import { ParagraphFilterAlqaheranews } from "../utiles/ParagraphFilter.js";
 
 const links = [
@@ -45,6 +46,7 @@ const itemSelector = {
   img: "main .single-content2 figure img",
   paragraphs: "main .single-content2 article .entry-main-content .htmlCode p",
   filtertext: ParagraphFilterAlqaheranews,
+  CleanUrlImage: CleanImageUrl,
 };
 
 export const Alqaheranews = async (browser) => {
