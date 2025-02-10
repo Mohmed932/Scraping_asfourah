@@ -5,16 +5,16 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 const links = [
-  {
-    category: "Art",
-    name: "ثقافه وفن",
-    link: "https://www.elbalad.news/category/8",
-  },
-  {
-    category: "Economy",
-    name: "اقتصاد",
-    link: "https://www.elbalad.news/category/6",
-  },
+  // {
+  //   category: "Art",
+  //   name: "ثقافه وفن",
+  //   link: "https://www.elbalad.news/category/8",
+  // },
+  // {
+  //   category: "Economy",
+  //   name: "اقتصاد",
+  //   link: "https://www.elbalad.news/category/6",
+  // },
   {
     category: "Sports",
     name: "رياضه",

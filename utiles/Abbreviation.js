@@ -24,12 +24,16 @@ const openPage = async (
   url,
   viewport = { width: 1600, height: 950, deviceScaleFactor: 1 }
 ) => {
-  await page.setViewport(viewport);
-  await page.goto(url, {
-    waitUntil: "domcontentloaded",
-    timeout: 60000,
-    visible: true,
-  });
+  try {
+    await page.setViewport(viewport);
+    await page.goto(url, {
+      waitUntil: "domcontentloaded",
+      timeout: 0,
+    });
+  } catch (error) {
+    console.error("Error opening page:", error);
+    throw error; // إعادة رمي الخطأ لتتم معالجته في مكان آخر
+  }
 };
 
 const processLink = async (page, link, itemSelector, name, category) => {
@@ -58,7 +62,7 @@ const processLink = async (page, link, itemSelector, name, category) => {
         desc: paragraphs,
       };
 
-      await InsertDataToDb(data); // حفظ البيانات في قاعدة البيانات
+      await InsertDataToDb(data);
     }
   } catch (error) {
     console.error("Error processing link:", error);
@@ -72,18 +76,20 @@ const processCategoryLinks = async (
   name,
   category
 ) => {
-  await openPage(page, categoryLink);
-  await page.waitForSelector(itemSelector.linkNews, {
-    waitUntil: "domcontentloaded",
-    timeout: 60000,
-    visible: true,
-  });
+  try {
+    await openPage(page, categoryLink);
+    await page.waitForSelector(itemSelector.linkNews, {
+      waitUntil: "domcontentloaded",
+      timeout: 0,
+    });
 
-  const link = await page.$eval(itemSelector.linkNews, (i) => i.href);
-
-  const checklinkindb = await News.exists({ link });
-  if (!checklinkindb) {
-    await processLink(page, link, itemSelector, name, category);
+    const link = await page.$eval(itemSelector.linkNews, (i) => i.href);
+    const checklinkindb = await News.exists({ link });
+    if (!checklinkindb) {
+      await processLink(page, link, itemSelector, name, category);
+    }
+  } catch (error) {
+    console.error("Error occurred:", error);
   }
 };
 
@@ -99,6 +105,13 @@ export const Abbreviation = async (browser, itemSelector, links) => {
     try {
       // إضافة فاصل زمني بين الروابط لمنع الحظر
       await delay(1000);
+
+      // إضافة التحقق إذا كانت الصفحة مغلقة
+      if (page.isClosed()) {
+        console.log(`Page at index ${i} is closed, skipping...`);
+        continue;
+      }
+
       await processCategoryLinks(
         page,
         itemSelector,

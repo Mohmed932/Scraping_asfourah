@@ -9,7 +9,7 @@ export const PuppeteerScraping = async () => {
   let browser = null;
   try {
     browser = await puppeteer.launch({
-      // headless: process.env.NODE_ENV === "production" ? true : false,
+      headless: process.env.NODE_ENV === "production" ? true : false,
       args: [
         "--disable-setuid-sandbox",
         "--no-sandbox",
