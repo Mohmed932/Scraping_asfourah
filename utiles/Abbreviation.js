@@ -15,7 +15,6 @@ const userAgents = [
   "Mozilla/5.0 (iPad; CPU OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1",
 ];
 
-// دالة لاختيار userAgent عشوائي
 const getRandomUserAgent = () =>
   userAgents[Math.floor(Math.random() * userAgents.length)];
 
@@ -52,7 +51,6 @@ const processLink = async (page, link, itemSelector, name, category) => {
         paragraphs[0],
         itemSelector.googleGeminiKey
       );
-
       const data = {
         title: await rewriteScence(title, itemSelector.googleGeminiKey),
         img,
@@ -61,7 +59,6 @@ const processLink = async (page, link, itemSelector, name, category) => {
         category,
         desc: paragraphs,
       };
-
       await InsertDataToDb(data);
     }
   } catch (error) {
@@ -95,23 +92,10 @@ const processCategoryLinks = async (
 
 export const Abbreviation = async (browser, itemSelector, links) => {
   if (!browser.isConnected()) return;
-
-  // معالجة الروابط بشكل تتابعي
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
   for (let i = 0; i < links.length; i++) {
     const { category, name, link: categoryLink } = links[i];
     const page = await browser.newPage();
     try {
-      // إضافة فاصل زمني بين الروابط لمنع الحظر
-      await delay(1000);
-
-      // إضافة التحقق إذا كانت الصفحة مغلقة
-      if (page.isClosed()) {
-        console.log(`Page at index ${i} is closed, skipping...`);
-        continue;
-      }
-
       await processCategoryLinks(
         page,
         itemSelector,
@@ -124,8 +108,9 @@ export const Abbreviation = async (browser, itemSelector, links) => {
         `Error processing link ${categoryLink} at index ${i}:`,
         error
       );
+      throw error;
     } finally {
-      if (!page.isClosed()) await page.close();
+      await page.close();
     }
   }
 };
