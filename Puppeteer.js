@@ -3,7 +3,7 @@ import { Sayidaty } from "./Scraping/Sayidaty.js";
 import { Alqaheranews } from "./Scraping/Alqaheranews.js";
 import { Aawsat } from "./Scraping/Aawsat.js";
 import { Shorouknews } from "./Scraping/Shorouknews.js";
-import { SkynewsArabia } from "./Scraping/SkynewsArabia.js";
+import { Elbalad } from "./Scraping/Elbalad.js";
 
 export const PuppeteerScraping = async () => {
   let browser = null;
@@ -23,12 +23,13 @@ export const PuppeteerScraping = async () => {
           ? process.env.PUPPETEER_EXECUTABLE_PATH
           : puppeteer.executablePath(),
     });
-    await SkynewsArabia(browser);
+    await Elbalad(browser);
     await Shorouknews(browser);
     await Sayidaty(browser);
     await Alqaheranews(browser);
     await Aawsat(browser);
     setInterval(async () => {
+      await Elbalad(browser);
       await Shorouknews(browser);
       await Sayidaty(browser);
       await Alqaheranews(browser);

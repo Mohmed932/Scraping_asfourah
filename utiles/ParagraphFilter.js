@@ -70,10 +70,10 @@ export const ParagraphFilterAawsat = async (page, itemSelector) => {
     return [];
   }
 };
-export const ParagraphFilterSkynewsArabia = async (page, itemSelector) => {
+export const ParagraphFilterElbalad = async (page, itemSelector) => {
   try {
     await removeElements(page, itemSelector.divs);
-    await removeElements(page, itemSelector.sna);
+    await removeElements(page, itemSelector.h2);
     const TextFilters = await ParagraphsFilters(page, itemSelector.paragraphs);
     return TextFilters;
   } catch (error) {
