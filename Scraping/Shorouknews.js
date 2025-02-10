@@ -65,7 +65,7 @@ const itemSelector = {
   style: ".container .rightArea .innerNews .eventContent style",
   filtertext: ParagraphFilterShorouknews,
   CleanUrlImage: CleanImageUrl,
-  googleGeminiKey: process.env.GOOGLE_GEMINI_KEY_ALQAHERANEWS,
+  googleGeminiKey: process.env.GOOGLE_GEMINI_KEY_SHOROUKNEWS,
 };
 
 export const Shorouknews = async (browser) => {
