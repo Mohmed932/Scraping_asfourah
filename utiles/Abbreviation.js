@@ -18,39 +18,27 @@ const userAgents = [
 const getRandomUserAgent = () =>
   userAgents[Math.floor(Math.random() * userAgents.length)];
 
-const openPage = async (
-  page,
-  url,
-  viewport = { width: 1600, height: 950, deviceScaleFactor: 1 }
-) => {
+const openPage = async (page, url, viewport = { width: 1600, height: 950 }) => {
   try {
     await page.setViewport(viewport);
-    await page.goto(url, {
-      waitUntil: "domcontentloaded",
-      timeout: 0,
-    });
+    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 5000  });
   } catch (error) {
-    console.error("Error opening page:", error);
-    throw error; // إعادة رمي الخطأ لتتم معالجته في مكان آخر
+    console.error("❌ خطأ أثناء فتح الصفحة:", url, error);
   }
 };
+
 
 const processLink = async (page, link, itemSelector, name, category) => {
   try {
     await page.setUserAgent(getRandomUserAgent());
     await openPage(page, link);
 
-    const title = await page.$eval(itemSelector.title, (i) =>
-      i.textContent.trim()
-    );
+    const title = await page.$eval(itemSelector.title, (i) => i.textContent.trim());
     const img = await itemSelector.CleanUrlImage(page, itemSelector);
     const paragraphs = await itemSelector.filtertext(page, itemSelector);
 
     if (title && img && paragraphs[0]) {
-      paragraphs[0] = await rewriteScence(
-        paragraphs[0],
-        itemSelector.googleGeminiKey
-      );
+      paragraphs[0] = await rewriteScence(paragraphs[0], itemSelector.googleGeminiKey);
       const data = {
         title: await rewriteScence(title, itemSelector.googleGeminiKey),
         img,
@@ -67,23 +55,15 @@ const processLink = async (page, link, itemSelector, name, category) => {
       );
     }
   } catch (error) {
-    console.error("Error processing link:", error);
+    console.error("⚠️ خطأ أثناء معالجة الرابط:", link, error);
   }
 };
 
-const processCategoryLinks = async (
-  page,
-  itemSelector,
-  categoryLink,
-  name,
-  category
-) => {
+
+const processCategoryLinks = async (page, itemSelector, categoryLink, name, category) => {
   try {
     await openPage(page, categoryLink);
-    await page.waitForSelector(itemSelector.linkNews, {
-      waitUntil: "domcontentloaded",
-      timeout: 0,
-    });
+    await page.waitForSelector(itemSelector.linkNews, { timeout: 5000 });
 
     const link = await page.$eval(itemSelector.linkNews, (i) => i.href);
     const checklinkindb = await News.exists({ link });
@@ -91,9 +71,10 @@ const processCategoryLinks = async (
       await processLink(page, link, itemSelector, name, category);
     }
   } catch (error) {
-    console.error("Error occurred:", error);
+    console.error("⚠️ خطأ أثناء جلب الروابط من:", categoryLink, error);
   }
 };
+
 
 export const Abbreviation = async (browser, itemSelector, links) => {
   if (!browser.isConnected()) return;
@@ -113,7 +94,6 @@ export const Abbreviation = async (browser, itemSelector, links) => {
         `Error processing link ${categoryLink} at index ${i}:`,
         error
       );
-      throw error;
     } finally {
       await page.close();
     }
