@@ -3,13 +3,15 @@ import puppeteer from "puppeteer";
 export const OpenBrowser = async () => {
   try {
     const browser = await puppeteer.launch({
-      headless: true, 
+      headless: "new",
       executablePath: "/usr/bin/chromium-browser", 
-      args: [
-        
-        "--no-sandbox", 
-        "--disable-gpu", 
-      ], 
+     args: [
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+        "--disable-gpu",
+        "--single-process",
+        "--disable-dev-shm-usage",
+      ],
     });
     return browser;
   } catch (error) {
