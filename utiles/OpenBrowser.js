@@ -14,7 +14,7 @@ export const OpenBrowser = async () => {
       ],
       executablePath:
         process.env.NODE_ENV === "production"
-          ? process.env.PUPPETEER_EXECUTABLE_PATH
+          ? '/usr/bin/chromium-browser'
           : puppeteer.executablePath(),
     });
     return browser;
