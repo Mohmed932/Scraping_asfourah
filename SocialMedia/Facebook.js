@@ -1,23 +1,23 @@
-export const PostToFacebookPage = (
-  pageId,
+export const PostToFacebookPage = async (
+  AccessToken,
+  FacebookId,
   message,
-  linkNews,
-  accessToken,
-  image
+  image,
+  linkNews
 ) => {
-  const url = `https://graph.facebook.com/${pageId}/photos?url=${image}&access_token=${accessToken}&message=${
-    message + linkNews
-  }`;
-
-  fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Data:", data);
-    })
-    .catch((error) => {
-      console.error("Error posting on Facebook Page:", error);
+  try {
+    const url = `https://graph.facebook.com/${FacebookId}/photos?url=${image}&access_token=${AccessToken}&message=${
+      message + "  " + linkNews
+    }`;
+    const req = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      timeout: 30000,
     });
+
+    const res = await req.json();
+    console.log("Data:", res);
+  } catch (error) {
+    console.error("Error posting on Facebook Page:", error);
+  }
 };
