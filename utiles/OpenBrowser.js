@@ -3,7 +3,6 @@ import puppeteer from "puppeteer";
 export const OpenBrowser = async () => {
   try {
     const browser = await puppeteer.launch({
-      headless: "new",
       args: [
         "--disable-setuid-sandbox",
         "--no-sandbox",
