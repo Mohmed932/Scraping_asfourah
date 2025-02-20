@@ -1,0 +1,30 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      MONGODB_URL: ${{ secrets.MONGODB_URL }}
+      GOOGLE_GEMINI_KEY_SHOROUKNEWS: ${{ secrets.GOOGLE_GEMINI_KEY_SHOROUKNEWS }}
+      GOOGLE_GEMINI_KEY_SAYIDATY: ${{ secrets.GOOGLE_GEMINI_KEY_SAYIDATY }}
+      GOOGLE_GEMINI_KEY_ALQAHERANEWS: ${{ secrets.GOOGLE_GEMINI_KEY_ALQAHERANEWS }}
+      GOOGLE_GEMINI_KEY_ELBALAD: ${{ secrets.GOOGLE_GEMINI_KEY_ELBALAD }}
+      GOOGLE_GEMINI_KEY_AAESAT: ${{ secrets.GOOGLE_GEMINI_KEY_AAESAT }}
+      MY_EMAIL_APP: ${{ secrets.MY_EMAIL_APP }}
+      GOOGLE_GMAIL_APP_PASSWORD: ${{ secrets.GOOGLE_GMAIL_APP_PASSWORD }}
+      FACEBOOK_ACCESSTOKEN: ${{ secrets.FACEBOOK_ACCESSTOKEN }}
+      THREADS_ACCESSTOKEN: ${{ secrets.THREADS_ACCESSTOKEN }}
+      FACEBOOKPAGEID: ${{ secrets.FACEBOOKPAGEID }}
+      INSTAGRAM_ID: ${{ secrets.INSTAGRAM_ID }}
+      THREADS_ID: ${{ secrets.THREADS_ID }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
