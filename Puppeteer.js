@@ -19,6 +19,7 @@ export const PuppeteerScraping = async () => {
   try {
     const browser = await OpenBrowser();
     await ScrapingNews(browser);
+    console.log("good function ")
     setInterval(async () => {
       await ScrapingNews(browser);
     }, 600000);

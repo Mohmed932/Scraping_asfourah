@@ -21,7 +21,7 @@ const getRandomUserAgent = () =>
 const openPage = async (page, url, viewport = { width: 1600, height: 950 }) => {
   try {
     await page.setViewport(viewport);
-    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 5000  });
+    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 0  });
   } catch (error) {
     console.error("❌ خطأ أثناء فتح الصفحة:", url, error);
   }
@@ -63,7 +63,7 @@ const processLink = async (page, link, itemSelector, name, category) => {
 const processCategoryLinks = async (page, itemSelector, categoryLink, name, category) => {
   try {
     await openPage(page, categoryLink);
-    await page.waitForSelector(itemSelector.linkNews, { timeout: 5000 });
+    await page.waitForSelector(itemSelector.linkNews, { timeout: 0 });
 
     const link = await page.$eval(itemSelector.linkNews, (i) => i.href);
     const checklinkindb = await News.exists({ link });
