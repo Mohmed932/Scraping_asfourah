@@ -21,24 +21,28 @@ const getRandomUserAgent = () =>
 const openPage = async (page, url, viewport = { width: 1600, height: 950 }) => {
   try {
     await page.setViewport(viewport);
-    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 0  });
+    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 0 });
   } catch (error) {
     console.error("❌ خطأ أثناء فتح الصفحة:", url, error);
   }
 };
-
 
 const processLink = async (page, link, itemSelector, name, category) => {
   try {
     await page.setUserAgent(getRandomUserAgent());
     await openPage(page, link);
 
-    const title = await page.$eval(itemSelector.title, (i) => i.textContent.trim());
+    const title = await page.$eval(itemSelector.title, (i) =>
+      i.textContent.trim()
+    );
     const img = await itemSelector.CleanUrlImage(page, itemSelector);
     const paragraphs = await itemSelector.filtertext(page, itemSelector);
 
     if (title && img && paragraphs[0]) {
-      paragraphs[0] = await rewriteScence(paragraphs[0], itemSelector.googleGeminiKey);
+      paragraphs[0] = await rewriteScence(
+        paragraphs[0],
+        itemSelector.googleGeminiKey
+      );
       const data = {
         title: await rewriteScence(title, itemSelector.googleGeminiKey),
         img,
@@ -51,7 +55,7 @@ const processLink = async (page, link, itemSelector, name, category) => {
       await PublishToSocialMedia(
         SavedData.title,
         SavedData.img,
-        `https://asfourah.vercel.app/news/${SavedData._id}`
+        `https://www.asfourah.online/news/${SavedData._id}`
       );
     }
   } catch (error) {
@@ -59,8 +63,13 @@ const processLink = async (page, link, itemSelector, name, category) => {
   }
 };
 
-
-const processCategoryLinks = async (page, itemSelector, categoryLink, name, category) => {
+const processCategoryLinks = async (
+  page,
+  itemSelector,
+  categoryLink,
+  name,
+  category
+) => {
   try {
     await openPage(page, categoryLink);
     await page.waitForSelector(itemSelector.linkNews, { timeout: 0 });
@@ -74,7 +83,6 @@ const processCategoryLinks = async (page, itemSelector, categoryLink, name, cate
     console.error("⚠️ خطأ أثناء جلب الروابط من:", categoryLink, error);
   }
 };
-
 
 export const Abbreviation = async (browser, itemSelector, links) => {
   if (!browser.isConnected()) return;
