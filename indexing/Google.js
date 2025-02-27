@@ -1,25 +1,27 @@
-import { google } from "googleapis"
+import { google } from "googleapis";
 
-const key  = {
-  "type": "service_account",
-  "project_id": "awalbawl-389210",
-  "private_key_id": "e6a015fb318b34902655280a07803a0281f13168",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCobKdKveDGnfx+\np7rRvGTD+Tg5gVHQOcJoMAxft1XrlOrDHmoOKL/No+l8hfZrGKtnQI9LkN2+KOTi\nFNG5fWOXCBgr+nrXZ3oJwcBUWFoPGExaWCLXWjM9oPUXhj5he2YzJ1htFivPSrr2\nZIuKiUi9dUiOcG6vbDbIOj5rmObtSCKQmoMmz217dFoqAiV3kf0zKpaIXdxRX+M0\n4gpebkbjaL4TO9hZQLwCFNvfPc83u+hb0+IGkVfzYaxgJaOZC7NWVRR5Zkg7LHPZ\nWrBQ0ZrIbMMF33Po1PBKPGF1cZnDqsAeVY3SEzssM3hpDb7VEb9t/ZS/M1nyYfvC\nrqbrWFyNAgMBAAECggEAGkdVtN46f5Lv7g0ao5Xq/P7aLHLGgqA4eowgqiCPaeIC\n3S3WK15lSt8r04+NWrlvKP2UPhyc1IpJ6BKKhJARZWPQbbA30XsmOfZ+nUppxtgq\nNaBx0zsSKqf+Bc0e15Pq5slZTS/75uyIjmAyu4tfC5yMlRjq1DkktQoNajlhspzh\nJPQufrL9j3bd/qDvfBRBeQXfMndjXWXZ7cURxwKiSoFoT10vLiSNOsMQbfVa/6Oq\nkHqEmBjHW9Dd4eWZq0YNMHvjlq96mTkXBb1qSl/ZGk7vN20MsAe/ihN7X0psaVTd\nrnZwWvllhHDxfJXC8ldNLXIcZhKnr5YE9Q4s8xj5uwKBgQDjHi6EvUmjmm/omPJ9\nN/Ot5rsGM/JcOdsqKDbf4OICbEOjiGvZ1j2N//aj97ZFLcN9Tf+YzUdvcJvE/QQ1\n8YEcqg2H7p31u3IOXgFl2CX4OmserTUY51mc2qo86vPpjc9LNyjiC5tzc7/uLIlz\n7wb8W0Trp31Hj7cnqwKH+GXbNwKBgQC917UGA3DgoygVJfx9X/u0BZB3phvERM1a\n41wz9t83AV+KgamDerhKE+LHiD/5+PrN0LQAQU2gi0eLg1bQlc+MtT1+1VYdrn1X\nYOzpY5/rQPV5YGHZmHWqid69cCva2hU2jniLpPoG/TmFqq3WjmlodrF0Rpa4kJCN\nfZnR4hAQWwKBgQCYiJm3fqVpYnyMW8RoQt6+ybqMBPFd7WF7Y7zPCWrhM7MNrr64\nc8Gtj94m62QX/A9SJcNm7V9vwdJsL33XeNY82RzzUVf3RKfqbEpGCzAdEacF2FBT\n5HTz+ovhE+8yyZISMv6bKi6CEJgzrue13C/15ppYJonmOOhKlPjDNxm5awKBgQCx\n7C6eui7aek+gsn9XSdPvPp/NY4L2ib0lB51snl1JgiH2/9rNfQCnfMe4VfwP3cfB\niW6KJqoIY0Dkgm2lBCMHLv25l1wkaVrTv+WKP3Kr26+02B4c/4SYFqsJRM31SRtE\njHZx+mbSkhWNLw/J3KLx4vwhi97Kj8LKuQKm8IY5rQKBgQDQZ4Zg1C10ad7NC58n\nl4i7cULwFGq8M2fqmwtmZyUaABgnXE4ArXMMfGkrrcxecREPzO1JN03v+5yaFXHN\naLWzQ+Ef74zvcy8x8Cj8H/0XgzbKuMctO0x6fmoqa0REvzSRf7iuCjIhEh9MNqKZ\nc2chMlkG/qfleUrUGTel9c0ORA==\n-----END PRIVATE KEY-----\n",
-  "client_email": "awalbawl@awalbawl-389210.iam.gserviceaccount.com",
-  "client_id": "116959225193408063442",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/awalbawl%40awalbawl-389210.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
-}
+const key = {
+  type: "service_account",
+  project_id: "asfourah",
+  private_key_id: "24c0dc723352212230d6ca7c870feceb3a0d9263",
+  private_key:
+    "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC/xS3Uv4J4cKsl\n+QPzObzXpPFKSatu5JCepHXYjFt0wpRnGkXB/8R7rCMALBhstTQZZF9Ut9yVp2IB\nvBtnxmSkz1COxjaOVOrj38GmdcmchET+8oI5JCNm4VLVKlLF75HBnixUqo6Lmq52\n5jGmMTDyLjghQElhtf3I0oiZIw7FpQVM7J8MUsfLMcoJrHK+gqIhmLPq3rNTlNkJ\nhjt5/dWq16qRVgOO+rPIhDobhPoYfAi8onZR/OSK40WkaTmmlELR9CMSd2Xvy4+7\nZqrk+rVBQsuueAm6PAPQxkImz7DMrTXnn9SlXeEFT07MVRmyb2Yi/jCmIny6JkAN\nRpCdB5c5AgMBAAECggEAASFgZQO7L/zgvj3lnIKcq15hXl52sPX8MXXE9dh4quST\np/hIXykIhkx0OSXN9rHu9HzckDT5BpXfg0ltJ9tZ7cUgSCG8XUSFaJIParYTIxpZ\nkB85N1Gd8ilah6iZuaAjZu7I6Teiy6SwQMGzkeXNlO5wkDl4Ovo7qj7AKfuiOP8e\nodLEblDJtOORtnwIkAgQzKiZWiUZy3wP0zYhj6tKq/MpCIWvPA6PAOBeqlJTDyLr\nb/8xLxVGA2DnjlCxcz/8ya6xJ58bGH2lR2fohT/iB/5s9E0HywK++D24pSxYJtB6\nzZXSrYZ0VqlGK/piQ10N7SYYq0kJ++QTadSHedB3gQKBgQDuzUEy7IRysdyOG3xM\nqq3CCb75+VR9Di+pjbHhISbdiwudz9PafztKaNjGh+BqXNtgvuIH2hD2/rP6zNb9\nKYvB4zc4UghiSuTnhrsQzeBXRbb7FwLlf1r6ULHmjkwyIfQ83HjQ825+ogBe7Rqk\n/oAdJLNTUpL0hDYg+hbLzuazuQKBgQDNlM/tPyye/XuaTf8sS2OSkERpm6htkqiD\n/zakG/IpiSt6CcZjsRWat1vyu+VxN0TfMSGAo+aD5sSDJ8f5njKAFhk+2QRm4JWh\nRcOvYZDfsP+SVoASpzoWX0epWrmAepEWEHQII3+9eojO7OIWS3f/ejlshcB2uze3\nGD39yDC/gQKBgFeOYFJoj+NxvTlJcJi3l7/mTORge47ija0wK8Eso5BlM9wn4Dhj\nn/yXVqvsE+dLpo/hTQSt+rxlBN53DniCLCDpy0xWH4bSiP0u1BXENnYpNH75n/E/\ncb8HqUKsd9mFw4QxHgcWyjOZ+GLVsog+XADTfQCW7RTECQisSYFumf3ZAoGAcq/v\nI2qX6QZ+ewHCNiLEpNII6GWnG6GykxjAkeLpQNS+RXHIlHsJE2vxRsQd5wAvUtgk\n2ZAWHEWUIZsCy7W+dIhfgxkshHwL3ZF+7oted/xVR30sK7vRAwQahVcQn6VA5W8+\nW//51mnSgqXSJx/pDMRR3sHrMhGVrnY+tyKEV4ECgYBM2axMI4eg2y7wswKr44lR\ngGLbisl+CHQ4OU0+jdm1g1vkYpO/P/WMxCBnewokuBYzSeJ+ncTPSYQvcpAnoL4I\nYrtEhR8dsiGbaD3i3v9bpNNhZRoUbs7Q4DHWbI2SAZGdtpKr3hR2mUTL9zuQYlNp\neG6+/4fvYXXOU9BU+AEOUg==\n-----END PRIVATE KEY-----\n",
+  client_email: "asfourah@asfourah.iam.gserviceaccount.com",
+  client_id: "106261875357359595518",
+  auth_uri: "https://accounts.google.com/o/oauth2/auth",
+  token_uri: "https://oauth2.googleapis.com/token",
+  auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+  client_x509_cert_url:
+    "https://www.googleapis.com/robot/v1/metadata/x509/asfourah%40asfourah.iam.gserviceaccount.com",
+  universe_domain: "googleapis.com",
+};
 
 export const indexing = async (urlToIndex) => {
   const jwtClient = new google.auth.JWT(
     key.client_email,
     null,
     key.private_key,
-    ['https://www.googleapis.com/auth/indexing'],
+    ["https://www.googleapis.com/auth/indexing"],
     null
   );
 
@@ -28,19 +30,22 @@ export const indexing = async (urlToIndex) => {
 
     const notification = {
       url: urlToIndex,
-      type: 'URL_UPDATED'
+      type: "URL_UPDATED",
     };
 
     const options = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${tokens.access_token}`
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokens.access_token}`,
       },
-      body: JSON.stringify(notification)
+      body: JSON.stringify(notification),
     };
 
-    const response = await fetch('https://indexing.googleapis.com/v3/urlNotifications:publish', options);
+    const response = await fetch(
+      "https://indexing.googleapis.com/v3/urlNotifications:publish",
+      options
+    );
     const data = await response.json();
     console.log(data);
   } catch (err) {

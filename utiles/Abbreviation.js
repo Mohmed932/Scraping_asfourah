@@ -1,12 +1,10 @@
-// import { indexing } from "../indexing/Google.js";
-// import { submitToBing } from "../indexing/microsoft.js";
-
 import { InsertDataToDb } from "../Curd/Inserttodb.js";
+import { indexing } from "../indexing/Google.js";
+import { submitToBing } from "../indexing/microsoft.js";
 import { News } from "../model/News.js";
 import { PublishToSocialMedia } from "../SocialMedia/PublishToSocialMedia.js";
 import { rewriteScence } from "./Rewrite.js";
 
-// قائمة المتصفحات
 const userAgents = [
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
@@ -52,6 +50,8 @@ const processLink = async (page, link, itemSelector, name, category) => {
         desc: paragraphs,
       };
       const SavedData = await InsertDataToDb(data);
+      await indexing(`https://www.asfourah.online/news/${SavedData._id}`);
+      await submitToBing(`https://www.asfourah.online/news/${SavedData._id}`);
       await PublishToSocialMedia(
         SavedData.title,
         SavedData.img,
