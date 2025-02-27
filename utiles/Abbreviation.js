@@ -50,13 +50,10 @@ const processLink = async (page, link, itemSelector, name, category) => {
         desc: paragraphs,
       };
       const SavedData = await InsertDataToDb(data);
-      await indexing(`https://www.asfourah.online/news/${SavedData._id}`);
-      await submitToBing(`https://www.asfourah.online/news/${SavedData._id}`);
-      await PublishToSocialMedia(
-        SavedData.title,
-        SavedData.img,
-        `https://www.asfourah.online/news/${SavedData._id}`
-      );
+      const linkurlNews = `https://www.asfourah.online/news/${SavedData._id}`;
+      await indexing(linkurlNews);
+      await submitToBing(linkurlNews);
+      await PublishToSocialMedia(SavedData.title, SavedData.img, linkurlNews);
     }
   } catch (error) {
     console.error("⚠️ خطأ أثناء معالجة الرابط:", link, error);
