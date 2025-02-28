@@ -2,28 +2,26 @@ import { google } from "googleapis";
 
 const key = {
   type: "service_account",
-  project_id: "asfourah",
-  private_key_id: "24c0dc723352212230d6ca7c870feceb3a0d9263",
+  project_id: "asfourah-news",
+  private_key_id: "60fcb92f05cdf9184e22d3fdde1cd2276ae42c23",
   private_key:
-    "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC/xS3Uv4J4cKsl\n+QPzObzXpPFKSatu5JCepHXYjFt0wpRnGkXB/8R7rCMALBhstTQZZF9Ut9yVp2IB\nvBtnxmSkz1COxjaOVOrj38GmdcmchET+8oI5JCNm4VLVKlLF75HBnixUqo6Lmq52\n5jGmMTDyLjghQElhtf3I0oiZIw7FpQVM7J8MUsfLMcoJrHK+gqIhmLPq3rNTlNkJ\nhjt5/dWq16qRVgOO+rPIhDobhPoYfAi8onZR/OSK40WkaTmmlELR9CMSd2Xvy4+7\nZqrk+rVBQsuueAm6PAPQxkImz7DMrTXnn9SlXeEFT07MVRmyb2Yi/jCmIny6JkAN\nRpCdB5c5AgMBAAECggEAASFgZQO7L/zgvj3lnIKcq15hXl52sPX8MXXE9dh4quST\np/hIXykIhkx0OSXN9rHu9HzckDT5BpXfg0ltJ9tZ7cUgSCG8XUSFaJIParYTIxpZ\nkB85N1Gd8ilah6iZuaAjZu7I6Teiy6SwQMGzkeXNlO5wkDl4Ovo7qj7AKfuiOP8e\nodLEblDJtOORtnwIkAgQzKiZWiUZy3wP0zYhj6tKq/MpCIWvPA6PAOBeqlJTDyLr\nb/8xLxVGA2DnjlCxcz/8ya6xJ58bGH2lR2fohT/iB/5s9E0HywK++D24pSxYJtB6\nzZXSrYZ0VqlGK/piQ10N7SYYq0kJ++QTadSHedB3gQKBgQDuzUEy7IRysdyOG3xM\nqq3CCb75+VR9Di+pjbHhISbdiwudz9PafztKaNjGh+BqXNtgvuIH2hD2/rP6zNb9\nKYvB4zc4UghiSuTnhrsQzeBXRbb7FwLlf1r6ULHmjkwyIfQ83HjQ825+ogBe7Rqk\n/oAdJLNTUpL0hDYg+hbLzuazuQKBgQDNlM/tPyye/XuaTf8sS2OSkERpm6htkqiD\n/zakG/IpiSt6CcZjsRWat1vyu+VxN0TfMSGAo+aD5sSDJ8f5njKAFhk+2QRm4JWh\nRcOvYZDfsP+SVoASpzoWX0epWrmAepEWEHQII3+9eojO7OIWS3f/ejlshcB2uze3\nGD39yDC/gQKBgFeOYFJoj+NxvTlJcJi3l7/mTORge47ija0wK8Eso5BlM9wn4Dhj\nn/yXVqvsE+dLpo/hTQSt+rxlBN53DniCLCDpy0xWH4bSiP0u1BXENnYpNH75n/E/\ncb8HqUKsd9mFw4QxHgcWyjOZ+GLVsog+XADTfQCW7RTECQisSYFumf3ZAoGAcq/v\nI2qX6QZ+ewHCNiLEpNII6GWnG6GykxjAkeLpQNS+RXHIlHsJE2vxRsQd5wAvUtgk\n2ZAWHEWUIZsCy7W+dIhfgxkshHwL3ZF+7oted/xVR30sK7vRAwQahVcQn6VA5W8+\nW//51mnSgqXSJx/pDMRR3sHrMhGVrnY+tyKEV4ECgYBM2axMI4eg2y7wswKr44lR\ngGLbisl+CHQ4OU0+jdm1g1vkYpO/P/WMxCBnewokuBYzSeJ+ncTPSYQvcpAnoL4I\nYrtEhR8dsiGbaD3i3v9bpNNhZRoUbs7Q4DHWbI2SAZGdtpKr3hR2mUTL9zuQYlNp\neG6+/4fvYXXOU9BU+AEOUg==\n-----END PRIVATE KEY-----\n",
-  client_email: "asfourah@asfourah.iam.gserviceaccount.com",
-  client_id: "106261875357359595518",
+    "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDIAL0Z/OFryCoa\nPIKeq1Ah1SAmt1wlhQ8zmBxhmSz92xW68gN9u/lkYiBDi7TXQiEyvC76+1XZXLjB\ni3Z0e8nUK6PEghJSjPbx7B4JcjYdwXY9tMAbqgEi25ittD8vFWUxqjIPq3cIfJuw\nNYG6OFUOJLUcYOUNjVQUiCQ02XG+vRifkPkfezJPjFheTkOsmKE5fZ/N5LSrSWLf\nD3bJ3jzkylB456oip30zQhvPHkrD5PwT/WfXUmBQpwo3KVE6XJl70GsxrvWP2nDE\nKB5nHCOJzMVS/25zNS/F4Woll2MJ+kkueABODG7bWRLlQpBpfcCxVxYNXzPKHe1t\nGAaHCZsvAgMBAAECggEAOzXMxgbRjaEipcXIPcUl4f5AmHWsOAdear3bmSFJ6pWT\np1bCpdSijo9mUdjoXtnbDjQcDH2f+suyfsoU9YM4SzHoN+LyHbJR4Wkvs0g2sTR3\nFumN/iKkV3d/id1U31GMNdnXHEB86uxJAy+0CjdnJtrDK3WcGhj/DV0IqwS84eR+\nm4yD/gQ/fmq7Yd9YCLOTrC1T0yvHx5H3kS3RjCIDz67WLv/f3xowIoncN2JpAxq+\nrVLhLu7+t80mz5CxYRsPK2f7ZbD6D8SOkS06YfVLbxMyKYFsP5fW2FRiTqFd+KK3\n/hYBYNSSd248/96sztTf9RFcm9foBN4z0/zylHidIQKBgQD+x2PxMgki5R0S/BBs\nnRSduCMmQZuv32hgNddZTMG0qBnsWoRIsmE73Fg8mGvY7OJZVvm4m5qzE/1IIfCV\ncxkGIgHfPj3/S3/iqUKPbuevnyWDntaDkViwEP/+kDfBkm5P+hQX7+BxiZaP0qAc\nxPjAe3QUWrCfKyUKfkI2QSezJwKBgQDI9iOW+baZV6tIR1Cu3ph102j9Hfv6AwkN\nzvav7A6FNNEJPK6asJwwH9A2Om+fV0pj7nkpar2KJ8qGdermWLbrHVWYW6xJrEP8\n8UiudmAHc+u4SWvy6uKdhiEdbqOFkuBvu8rbvi0AaCehDJ9Grqg4QvVTK+FGlBIU\nLCBvK0Q8uQKBgQCikeQp0X2W8I8ewAxS4eB3yzlSfeaz0GAvk+t3pcysU99Gu3NR\nV9FHexAqii+22WCNFTx/GXsa7ZReZJm5IxpCmYyMQJEax7gwj0RTdbcMjwZG+CF1\nDleC8TYH30pUj/UnvzD3HS8gA2U5HHLiKKV5XMzy9/NffQ5DpdDmAaktXQKBgEYw\nghm3Oimwzyg9kFajdIiiwGa31ExsRvtFsC+duSyZV/Fr+mgZC1RbqDNokZgLuvXQ\nUw0+NNlOMJRqFxNBJRJVepHuYuyQeGaeN46H1d6EhG4nZsa/d0shj+thu0dqF22v\nH5lEgR9FQaIkcHUVh7eu21SjXNlz2iSljOaHLBwxAoGBAO49kbXhzZ3uMoJOOBoM\n0LqTCdZwYNIyj4/boD3/hL2wglj58Mgsv0fVMxsgvFMllu2QOV7uvKjLko0a+WIF\n+VOHcMiRW2KbEJug/VHN4Rpi6y1Vdtv9dO0pwK8f/ZVmbLLAQjslZEcxtdMEQ0e9\nIUolgRNpkFXRQTmvFYwAVS/L\n-----END PRIVATE KEY-----\n",
+  client_email: "asfourah-news@asfourah-news.iam.gserviceaccount.com",
+  client_id: "115057668615957518911",
   auth_uri: "https://accounts.google.com/o/oauth2/auth",
   token_uri: "https://oauth2.googleapis.com/token",
   auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
   client_x509_cert_url:
-    "https://www.googleapis.com/robot/v1/metadata/x509/asfourah%40asfourah.iam.gserviceaccount.com",
+    "https://www.googleapis.com/robot/v1/metadata/x509/asfourah-news%40asfourah-news.iam.gserviceaccount.com",
   universe_domain: "googleapis.com",
 };
 
-export const indexing = async (urlToIndex) => {
-  const jwtClient = new google.auth.JWT(
-    key.client_email,
-    null,
-    key.private_key,
-    ["https://www.googleapis.com/auth/indexing"],
-    null
-  );
+const indexing = async (urlToIndex) => {
+  const jwtClient = new google.auth.JWT({
+    email: key.client_email,
+    key: key.private_key,
+    scopes: ["https://www.googleapis.com/auth/indexing"],
+  });
 
   try {
     const tokens = await jwtClient.authorize();
@@ -33,22 +31,23 @@ export const indexing = async (urlToIndex) => {
       type: "URL_UPDATED",
     };
 
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${tokens.access_token}`,
-      },
-      body: JSON.stringify(notification),
-    };
-
     const response = await fetch(
       "https://indexing.googleapis.com/v3/urlNotifications:publish",
-      options
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokens.access_token}`,
+        },
+        body: JSON.stringify(notification),
+      }
     );
+
     const data = await response.json();
     console.log(data);
   } catch (err) {
-    console.error(err);
+    console.error("Error:", err);
   }
 };
+
+indexing("https://www.asfourah.online/news/67c1a16a7574f9a22251cc0a");
