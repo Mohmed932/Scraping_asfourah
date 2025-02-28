@@ -16,7 +16,7 @@ const key = {
   universe_domain: "googleapis.com",
 };
 
-const indexing = async (urlToIndex) => {
+export const indexing = async (urlToIndex) => {
   const jwtClient = new google.auth.JWT({
     email: key.client_email,
     key: key.private_key,
@@ -49,5 +49,3 @@ const indexing = async (urlToIndex) => {
     console.error("Error:", err);
   }
 };
-
-indexing("https://www.asfourah.online/news/67c1a16a7574f9a22251cc0a");
