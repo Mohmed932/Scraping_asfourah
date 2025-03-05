@@ -27,7 +27,7 @@
 
 const INDEXNOW_API_KEY = process.env.INDEXNOW_API_KEY;
 
-export const submitToIndexNow = async (url) => {
+export const submitToBing = async (url) => {
   const INDEXNOW_ENDPOINT = `https://www.bing.com/indexnow?key=${INDEXNOW_API_KEY}&url=${url}`;
   console.log("⏳ Sending request to:", INDEXNOW_ENDPOINT);
   try {
@@ -40,4 +40,3 @@ export const submitToIndexNow = async (url) => {
     console.error("❌ Error submitting URL:", error.message);
   }
 };
-submitToIndexNow("https://www.asfourah.online/news/67c6e361ff3e8cd37ff473c5");
