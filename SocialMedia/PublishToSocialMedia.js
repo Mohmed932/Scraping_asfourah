@@ -4,6 +4,7 @@ dotenv.config();
 import { PostToFacebookPage } from "./Facebook.js";
 import { publishPostOnThreads } from "./Threads.js";
 import { publishPostOnInstagram } from "./Instagram.js";
+import { postTweetWithImage } from "./X.js";
 
 const FACEBOOK_ACCESSTOKEN = process.env.FACEBOOK_ACCESSTOKEN;
 const THREADS_ACCESSTOKEN = process.env.THREADS_ACCESSTOKEN;
@@ -34,6 +35,7 @@ export const PublishToSocialMedia = async (message, image, linkNews) => {
       image,
       linkNews
     );
+    await postTweetWithImage(message, linkNews, image);
   } catch (error) {
     console.log(error);
   }
